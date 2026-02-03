@@ -1,0 +1,93 @@
+/* Matrix Effect Styles */
+
+.matrix-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+    /* Add some padding */
+    width: 100%;
+    overflow: hidden;
+    background: black;
+    /* Ensure background matches */
+}
+
+.matrix-text {
+    color: #0f0;
+    font-size: 2.5rem;
+    /* Increased from 1.2rem */
+    font-family: 'Courier New', Courier, monospace;
+    /* Monospace fallback */
+    position: relative;
+    text-shadow: 0 0 5px #0f0, 0 0 10px #0f0;
+    /* Reduced glow */
+    z-index: 2;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.matrix-text::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation: glitch 3s infinite;
+    /* Slowed down slightly */
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    transform: translate(-1px, -1px);
+    /* Reduced offset */
+    color: #0f0;
+    text-shadow: 0 0 5px #0f0;
+    opacity: 0.8;
+}
+
+/* Rain Effect - Scoped to container */
+.rain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(0deg,
+            rgba(0, 255, 0, 0.05) 0,
+            rgba(0, 255, 0, 0.1) 1px,
+            transparent 2px);
+    filter: blur(1px);
+    /* Soften the rain */
+    animation: rain 2s linear infinite;
+    /* Faster falling for small height */
+    z-index: 1;
+    pointer-events: none;
+}
+
+@keyframes rain {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes glitch {
+
+    0%,
+    100% {
+        clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+        transform: translate(0);
+    }
+
+    33% {
+        clip-path: polygon(0 0, 100% 0, 100% 15%, 0 15%);
+        transform: translate(-2px, -1px);
+    }
+
+    66% {
+        clip-path: polygon(0 85%, 100% 85%, 100% 100%, 0 100%);
+        transform: translate(2px, 1px);
+    }
+}
